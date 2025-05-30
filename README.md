@@ -11,10 +11,6 @@
 - [X] **Tests unitaires JUNIT** pour vérifier les méthodes
 
 
-
-
-
-
 ## Auteurs
 
 Ilona COSME VINOU et

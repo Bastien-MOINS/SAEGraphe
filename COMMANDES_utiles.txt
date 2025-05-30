@@ -4,11 +4,8 @@ mvn archetype:generate -DgroupId=fr.sae_graphes.main \
 -DarchetypeArtifactId=maven-archetype-jgrapht \
 -DarchetypeVersion=1.2.0
 
-mvn exec:java -Dexec.mainClass="fr.sae_graphes.main.App"
-
 mvn compile
 
-dot -T pdf graph.dot -o graph.pdf
-=======
-dot -T pdf acteurs_graph.dot -o acteurs_graph.pdf
+mvn clean compile exec:java -Dexec.mainClass="fr.sae_graphes.main.App"
 
+dot -T pdf acteurs_graph.dot -o acteurs_graph.pdf

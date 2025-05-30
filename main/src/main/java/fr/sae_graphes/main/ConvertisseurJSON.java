@@ -45,7 +45,6 @@ public class ConvertisseurJSON {
     public Graph<String, DefaultEdge> jsonVersGraphe(String cheminFichier) throws IOException {
 
         Graph<String, DefaultEdge> graphe = new SimpleGraph<>(DefaultEdge.class);
-        
         BufferedReader lecteur = new BufferedReader(new FileReader(cheminFichier));
         List<String> lignes = new ArrayList<>();
         String ligne = lecteur.readLine();
@@ -54,25 +53,20 @@ public class ConvertisseurJSON {
             lignes.add(ligne);
             ligne = lecteur.readLine();
         }
-        
         lecteur.close();
-        
         Gson gson = new Gson();
-    
         for (String ligneJSON : lignes) {
             Film film = gson.fromJson(ligneJSON, Film.class);
-            
-            if (film.getCast() != null && !film.getCast().isEmpty()) {
 
+            if (film.getCast() != null && !film.getCast().isEmpty()) {
                 for (String acteur : film.getCast()) {
                     if (!graphe.containsVertex(acteur)) {
                         graphe.addVertex(acteur);
                     }
                 }
-                
+            
                 for (String acteur1 : film.getCast()) {
                     for (String acteur2 : film.getCast()) {
-
                         if (!acteur1.equals(acteur2) && !graphe.containsEdge(acteur1, acteur2)) {
                             graphe.addEdge(acteur1, acteur2);
                         }
@@ -80,7 +74,7 @@ public class ConvertisseurJSON {
                 }
             }
         }
-        
+
         return graphe;
     }
 }

@@ -2,17 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>fr.univ_orleans.iut45.r207.tp2</groupId>
-    <artifactId>tp2</artifactId>
+    <groupId>fr.univ_orleans.iut45.r207.sae</groupId>
+    <artifactId>sae</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Sample JGraphT Application</name>
     
-	<properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-	</properties>
-
     <dependencies>
         <dependency>
             <groupId>org.jgrapht</groupId>
@@ -42,7 +37,10 @@
 		</dependency>
 
     </dependencies>
-
+	<properties>
+    	<maven.compiler.source>11</maven.compiler.source>
+    	<maven.compiler.target>11</maven.compiler.target>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>

@@ -1,10 +1,12 @@
 package fr.sae_graphes.main;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
+
+
 
 public class CollaborateursProches {
             private static Set<String> getVoisins(Graph<String, DefaultEdge> graphe, String acteur) {
@@ -42,6 +44,6 @@ public class CollaborateursProches {
             col.addAll(collaborateurs_directs);
         }
         return col;
-        }
     }
+}
 }
