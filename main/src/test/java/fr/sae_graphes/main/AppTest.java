@@ -52,9 +52,9 @@ public class AppTest
 		graph.addVertex("Acteur 4");
 
 		graph.addEdge("Acteur 1", "Acteur 2");
-		graph.addEdge("chou", "alacreme");
-		graph.addEdge("chocolat", "noir");
-		graph.addEdge("pamplemousse", "a");
+		graph.addEdge("Acteur 1", "Acteur 3");
+        graph.addEdge("Acteur 2", "Acteur 3");
+        graph.addEdge("Acteur 3", "Acteur 4");
 
 		return graph;
 	
