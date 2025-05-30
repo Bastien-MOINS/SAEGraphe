@@ -8,7 +8,8 @@
 - [X] **Vérification de distance** entre deux acteurs
 - [X] **Ajout d'exception** pour gérer les erreurs
 - [X] **Menu intéractif** pour parcourir les implémentation
-- [ ] **Tests unitaires JUNIT** pour vérifier les méthodes
+- [X] **Tests unitaires JUNIT** pour vérifier les méthodes
+
 
 
 
