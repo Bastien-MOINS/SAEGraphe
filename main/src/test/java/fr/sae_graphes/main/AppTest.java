@@ -1,21 +1,29 @@
 package fr.sae_graphes.main;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.jgrapht.graph.builder.GraphTypeBuilder;
 import org.jgrapht.util.SupplierUtil;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-/**
- * Unit test for simple App.
+
+
+/** !! NOTE AUX PROFESSEURS !!
+ * Si vous avez bien l'extension VSCode Java Test Runner, 
+ * vous pouvez lancer les tests en appuyant sur le petit bouton vert qui apparait à gauche de la ligne de code.
  */
+
+
 public class AppTest 
 {
     /**
-     * Rigorous Test :-)
+     * Rigorous Test :-) Test fourni avec le TP
      */
     @Test
     public void rigorousTest()
@@ -44,26 +52,115 @@ public class AppTest
         assertEquals(0, graph.outDegreeOf(v2));
     }
 
-    public static Graph<String, DefaultEdge> generateGraph() {
-		Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
-		graph.addVertex("Acteur 1");
-		graph.addVertex("Acteur 2");
-		graph.addVertex("Acteur 3");
-		graph.addVertex("Acteur 4");
-
-		graph.addEdge("Acteur 1", "Acteur 2");
-		graph.addEdge("Acteur 1", "Acteur 3");
-        graph.addEdge("Acteur 2", "Acteur 3");
-        graph.addEdge("Acteur 3", "Acteur 4");
-
-		return graph;
-	
-	}
+	/**
+     * Test de la méthode enCommun
+     */
     @Test
     public void TestCollabCommun(){
-        Graph<String, DefaultEdge> graphe = generateGraph();
+      Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+      graph.addVertex("Acteur 1");
+      graph.addVertex("Acteur 2");
+      graph.addVertex("Acteur 3");
+      graph.addVertex("Acteur 4");
+      graph.addEdge("Acteur 1", "Acteur 2");
+      graph.addEdge("Acteur 1", "Acteur 3");
+      graph.addEdge("Acteur 1", "Acteur 4");
+      graph.addEdge("Acteur 3", "Acteur 4");
+      graph.addEdge("Acteur 4", "Acteur 1");
+      graph.addEdge("Acteur 2", "Acteur 4");
 
+      try {
+        Set<String> collaborateursCommuns = CollaborateursEnCommun.enCommun(graph, "Acteur 1", "Acteur 2");
+        assertEquals(1, collaborateursCommuns.size());
+        assertTrue(collaborateursCommuns.contains("Acteur 4"));
+        assertFalse(collaborateursCommuns.contains("Acteur 5"));
+      } catch (PasDeTelActeurException e) {
+        e.printStackTrace();
+      }
+      
+    }
+
+    /**
+     * Test de la méthode collabProches
+     */
+    @Test
+    public void TestCollabProches(){
+      Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+      graph.addVertex("Acteur 1");
+      graph.addVertex("Acteur 2");
+      graph.addVertex("Acteur 3");
+      graph.addVertex("Acteur 4");
+      graph.addEdge("Acteur 1", "Acteur 2");
+      graph.addEdge("Acteur 1", "Acteur 3");
+      graph.addEdge("Acteur 1", "Acteur 4");
+      graph.addEdge("Acteur 3", "Acteur 4");
+      graph.addEdge("Acteur 4", "Acteur 1");
+      graph.addEdge("Acteur 2", "Acteur 4");
+
+      try {
+        Set<String> collaborateursProches = CollaborateursProches.collaborateur_proches(graph, "Acteur 1", 1);
+        assertEquals(4, collaborateursProches.size());
+        assertTrue(collaborateursProches.contains("Acteur 4"));
+        assertFalse(collaborateursProches.contains("Acteur 5"));
+      } catch (PasDeTelActeurException e) {
+        e.printStackTrace();
+      }
+    }
+
+    /**
+     * Test de la méthode QuiEstAuCentre
+     */
+    @Test
+    public void TestQuiEstAuCentre(){
+        Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+        
+        graph.addVertex("Acteur 1");
+        graph.addVertex("Acteur 2");
+        graph.addVertex("Acteur 3");
+        graph.addVertex("Acteur 4");
+        graph.addVertex("Acteur 5");
+        
+        graph.addEdge("Acteur 1", "Acteur 2");
+        graph.addEdge("Acteur 1", "Acteur 3");
+        graph.addEdge("Acteur 1", "Acteur 4");
+        graph.addEdge("Acteur 1", "Acteur 5");
+        
+        graph.addEdge("Acteur 2", "Acteur 3");
+
+        String acteurCentral = QuiEstAuCentre.centreDuGraphe(graph);
+        assertEquals("Acteur 1", acteurCentral); 
 
 
     }
-}
+      /**
+     * Test UnePetiteFamille 
+     */
+    @Test
+    public void TestUnePetiteFamille(){
+    Graph<String, DefaultEdge> graph = new SimpleGraph<>(DefaultEdge.class);
+    graph.addVertex("Acteur 1");
+    graph.addVertex("Acteur 2");
+    graph.addVertex("Acteur 3");
+    graph.addVertex("Acteur 4");
+    graph.addVertex("Acteur 5");
+    
+    graph.addEdge("Acteur 1", "Acteur 2");
+    graph.addEdge("Acteur 1", "Acteur 3");
+    graph.addEdge("Acteur 1", "Acteur 4");
+    graph.addEdge("Acteur 3", "Acteur 4");
+    graph.addEdge("Acteur 2", "Acteur 4");
+
+    try {
+        Set<String> famille = UnePetiteFamille.famille(graph, "Acteur 1");
+        assertEquals(Integer.valueOf(4), Integer.valueOf(famille.size()));
+        assertTrue(famille.contains("Acteur 1"));
+        assertTrue(famille.contains("Acteur 2"));
+        assertTrue(famille.contains("Acteur 3"));
+        assertTrue(famille.contains("Acteur 4"));
+        assertFalse(famille.contains("Acteur 5"));
+      } 
+
+      catch (PasDeTelActeurException e) {
+        e.printStackTrace();
+    }
+ }}
