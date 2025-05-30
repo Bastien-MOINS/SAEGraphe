@@ -1,0 +1,11 @@
+mvn archetype:generate -DgroupId=fr.sae_graphes.main \
+-DartifactId=main \
+-DarchetypeGroupId=org.jgrapht.archetypes \
+-DarchetypeArtifactId=maven-archetype-jgrapht \
+-DarchetypeVersion=1.2.0
+
+mvn compile
+
+mvn clean compile exec:java -Dexec.mainClass="fr.sae_graphes.main.App"
+
+dot -T pdf acteurs_graph.dot -o acteurs_graph.pdf
